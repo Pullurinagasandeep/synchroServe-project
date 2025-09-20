@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <form
+      onsubmit="handleSearch(event)"
+      style="padding: 20px; display: flex; justify-content: center"
+    >
+      <input name="meal" type="text" placeholder="search a meal.." />
+      <button type="submit">search</button>
+    </form>
+    <div id="category-meals" class="meals"></div>
+    <div>
+      <h1 style="text-align: center">categories</h1>
+      <div id="root"></div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
