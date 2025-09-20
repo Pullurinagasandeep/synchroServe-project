@@ -132,3 +132,7 @@ async function handleSearch(event) {
     });
   });
 }
+
+function test() {
+  console.log("helloooo");
+}
