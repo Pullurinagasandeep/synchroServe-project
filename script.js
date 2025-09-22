@@ -42,14 +42,17 @@ async function gettingCategoryMeals(category) {
   const categoryMeals = document.getElementById("category-meals");
   // removing selected categories meals before showing new category meals
   const singlemeals = document.querySelectorAll(".single-meal");
-  singlemeals.map((singlemeal) => {
-    categoryMeals.removeChild(singlemeal);
-  });
+
+  if (singlemeals.length !== 0) {
+    singlemeals.forEach((singlemeal) => {
+      categoryMeals.removeChild(singlemeal);
+    });
+  }
 
   let content = ``;
   singleCategoryData.meals.map((meal) => {
     content =
-      `<div class="single-meal" id=${meal.strMeal}>
+      `<div class="single-meal" id="${meal.strMeal}">
          <img class="meal-img" src=${meal.strMealThumb}>
          <h3 class="meal-heading">${meal.strMeal}</h3>
       </div>` + content;
@@ -98,21 +101,6 @@ async function gettingSingleMeal(id) {
       </div>` + content;
   });
   body.innerHTML = content + body.innerHTML;
-
-  // singleMealData.meals.forEach((meal) => {
-  //   const singleMeal = document.createElement("div");
-  //   singleMeal.classList = "single-meal-recipe";
-  //   singleMeal.setAttribute("id", meal.idMeal);
-  //   singleMeal.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;">
-  //   <img class="meal-image-recipe" src="${meal.strMealThumb}">
-  //   <button style="padding:10px 20px; align-self:flex-start;position:fixed;top: 5%;right:10%;" onclick="hide()">X</button>
-  //   </div>
-  //   <h3 class="meal-heading-recipe">${meal.strMeal}</h3>
-  //   <p>${meal.strInstructions}</p>
-  //   <a href=${meal.strYoutube} target="_blank">link to youtube vedio</a>`;
-
-  //   body.append(singleMeal);
-  // });
 }
 // -------------------------------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------------------------------------
