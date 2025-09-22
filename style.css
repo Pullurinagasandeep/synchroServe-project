@@ -6,6 +6,7 @@ body {
 #root {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-auto-rows: 300px;
   gap: 20px;
   justify-content: center;
   max-width: 1200px;
@@ -34,6 +35,9 @@ img {
   overflow: auto;
   position: relative;
   color: whitesmoke;
+}
+.category p {
+  margin-top: 50px;
 }
 .category::after,
 .single-meal::after {

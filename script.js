@@ -4,16 +4,22 @@ async function gettingCategoryList() {
     "https://www.themealdb.com/api/json/v1/1/categories.php"
   );
   const allCategoriesData = await allCategoriesResponse.json();
-
+  // ---------------------------------------------------------------------------------------------------------------
+  // root div
   const root = document.getElementById("root");
   let content = ``;
   allCategoriesData.categories.map((category) => {
     content =
-      `<div class="category" id=${category.strCategory}><img class="category-img" src=${category.strCategoryThumb}><h3 class="category-heading">${category.strCategory}</h3></div>` +
-      content;
+      `<div class="category" id=${category.strCategory}>
+         <img class="category-img" src=${category.strCategoryThumb}>
+         <h3 class="category-heading">${category.strCategory}</h3>
+         <p>${category.strCategoryDescription}</p>
+      </div>` + content;
   });
   root.innerHTML = content;
-  allCategoriesData.categories.forEach((category) => {
+  // --------------------------------------------------------------------------------------------------------------
+  // adding click event on every category
+  allCategoriesData.categories.map((category) => {
     const categoryCard = document.getElementById(category.strCategory);
 
     categoryCard.addEventListener("click", () => {
@@ -21,6 +27,7 @@ async function gettingCategoryList() {
     });
   });
 }
+
 window.addEventListener("DOMContentLoaded", gettingCategoryList);
 // -------------------------------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------------------------------------
@@ -35,18 +42,19 @@ async function gettingCategoryMeals(category) {
   const categoryMeals = document.getElementById("category-meals");
   // removing selected categories meals before showing new category meals
   const singlemeals = document.querySelectorAll(".single-meal");
-  singlemeals.forEach((singlemeal) => {
+  singlemeals.map((singlemeal) => {
     categoryMeals.removeChild(singlemeal);
   });
 
+  let content = ``;
   singleCategoryData.meals.map((meal) => {
-    const singlemeal = document.createElement("div");
-    singlemeal.classList = "single-meal";
-    singlemeal.setAttribute("id", meal.strMeal);
-    singlemeal.innerHTML = `<img class="meal-img" src="${meal.strMealThumb}"><h3 class="meal-heading">${meal.strMeal}</h3>`;
-
-    categoryMeals.append(singlemeal);
+    content =
+      `<div class="single-meal" id=${meal.strMeal}>
+         <img class="meal-img" src=${meal.strMealThumb}>
+         <h3 class="meal-heading">${meal.strMeal}</h3>
+      </div>` + content;
   });
+  categoryMeals.innerHTML = content;
 
   singleCategoryData.meals.forEach((meal) => {
     const singleMealCard = document.getElementById(meal.strMeal);
@@ -56,7 +64,6 @@ async function gettingCategoryMeals(category) {
     });
   });
 
-  // categoryMeals.innerHTML = content;
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 // -------------------------------------------------------------------------------------------------------------------------------------------
@@ -72,19 +79,40 @@ async function gettingSingleMeal(id) {
 
   // removing selected categories meals before showing new category meals
   const singlemeals = document.querySelectorAll(".single-meal-recipe");
+
   singlemeals.forEach((singlemeal) => {
     body.removeChild(singlemeal);
   });
 
-  singleMealData.meals.forEach((meal) => {
-    const singleMeal = document.createElement("div");
-    singleMeal.classList = "single-meal-recipe";
-    singleMeal.setAttribute("id", meal.idMeal);
-    singleMeal.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;"><img class="meal-image-recipe" src="${meal.strMealThumb}"><button style="padding:10px 20px; align-self:flex-start;position:fixed;top: 5%;right:10%;" onclick="hide()">X</button></div><h3 class="meal-heading-recipe">${meal.strMeal}</h3><p>${meal.strInstructions}</p>
-    <a href=${meal.strYoutube} target="_blank">link to youtube vedio</a>`;
-
-    body.append(singleMeal);
+  let content = ``;
+  singleMealData.meals.map((meal) => {
+    content =
+      `<div class="single-meal-recipe" id=${meal.strMeal}>
+         <div style="display:flex;justify-content:space-between;align-items:center;">
+          <img class="meal-image-recipe" src="${meal.strMealThumb}">
+          <button style="padding:10px 20px; align-self:flex-start;position:fixed;top: 5%;right:10%;" onclick="hide()">X</button>
+        </div>
+        <h3 class="meal-heading-recipe">${meal.strMeal}</h3>
+        <p>${meal.strInstructions}</p>
+        <a href=${meal.strYoutube} target="_blank">link to youtube vedio</a>
+      </div>` + content;
   });
+  body.innerHTML = content + body.innerHTML;
+
+  // singleMealData.meals.forEach((meal) => {
+  //   const singleMeal = document.createElement("div");
+  //   singleMeal.classList = "single-meal-recipe";
+  //   singleMeal.setAttribute("id", meal.idMeal);
+  //   singleMeal.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;">
+  //   <img class="meal-image-recipe" src="${meal.strMealThumb}">
+  //   <button style="padding:10px 20px; align-self:flex-start;position:fixed;top: 5%;right:10%;" onclick="hide()">X</button>
+  //   </div>
+  //   <h3 class="meal-heading-recipe">${meal.strMeal}</h3>
+  //   <p>${meal.strInstructions}</p>
+  //   <a href=${meal.strYoutube} target="_blank">link to youtube vedio</a>`;
+
+  //   body.append(singleMeal);
+  // });
 }
 // -------------------------------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------------------------------------
@@ -98,12 +126,12 @@ function hide() {
 // -------------------------------------------------------------------------------------------------------------------------------------------
 async function handleSearch(event) {
   event.preventDefault();
+  // getting user input from input-field
+  const userinput = document.getElementById("userinput").value;
+  console.log(userinput);
 
-  const form = event.currentTarget;
-  const formData = new FormData(form);
-  const meal = formData.get("meal");
   const mealResponse = await fetch(
-    `https://www.themealdb.com/api/json/v1/1/search.php?s=${meal}`
+    `https://www.themealdb.com/api/json/v1/1/search.php?s=${userinput}`
   );
   const mealData = await mealResponse.json();
 
