@@ -3,27 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Recipe App</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <form
-      onsubmit="handleSearch(event)"
-      style="padding: 20px; display: flex; justify-content: center"
-    >
-      <input
-        name="meal"
-        type="text"
-        placeholder="search a meal.."
-        id="userInput"
-      />
-      <button type="submit">search</button>
-    </form>
-    <div id="category-meals" class="meals"></div>
-    <div>
-      <h1 style="text-align: center">categories</h1>
-      <div id="root"></div>
-    </div>
+    <header>
+      <!-- ========================search form=============================== -->
+      <form onsubmit="handleSearch(event)" class="search-form">
+        <input
+          name="meal"
+          type="text"
+          placeholder="Breakfast, Lunch, Dinner..."
+          id="userInput"
+          class="search-input"
+        />
+        <button type="submit" class="search-button">search</button>
+      </form>
+    </header>
+    <main>
+      <!-- ===================================================================== -->
+      <div class="hero">
+        <h1 class="hero-heading">Find a Recipe</h1>
+        <p class="hero-description">
+          Discover delicious recipes tailored just for you!
+        </p>
+      </div>
+      <!-- ======================================================================== -->
+      <div id="category-meals" class="meals"></div>
+      <!-- ======================================================================== -->
+      <div class="categories-container">
+        <h1 class="categories-heading">categories</h1>
+        <div id="root" class="categories"></div>
+      </div>
+    </main>
 
     <script src="./script.js"></script>
   </body>

@@ -1,61 +1,116 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   scroll-behavior: smooth;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: Arial, Helvetica, sans-serif, "Times New Roman", Times, serif;
+  background-color: #e8b14c;
+  background-image: url("./assets/top-view-cropped-hands-senior-cook-unrecognizable-cutting-carrot-cooking-vegetable-stew.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  backdrop-filter: brightness(0.7);
+  line-height: 1.5;
+  letter-spacing: 1px;
 }
-
-#root {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  grid-auto-rows: 300px;
-  gap: 20px;
-  justify-content: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.meals {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 250px);
-  grid-auto-rows: 250px;
-  gap: 20px;
-  justify-content: center;
-}
-input {
-  height: 20px;
-  margin-right: 10px;
-}
-
-img {
+header {
+  position: fixed;
+  top: 0;
   width: 100%;
+  background-color: white;
+  z-index: 100;
+}
+main {
+  min-height: 100vh;
+  backdrop-filter: brightness(0.7);
+}
+.search-form {
+  text-align: center;
+  padding: 20px 0;
+}
+.search-input {
+  height: 35px;
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid gray;
+  padding: 0 10px;
+  font-size: 16px;
 }
 
-.category,
-.single-meal {
-  background-color: rgb(82, 82, 82);
+.search-button {
+  height: 36px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0 15px;
+}
+
+.hero {
+  text-align: center;
+  padding: 100px 0px 40px;
+  color: #ffffff;
   border-radius: 10px;
+}
+
+.hero-heading {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.hero-description {
+  font-size: 18px;
+}
+.categories-container {
+  padding-top: 20px;
+}
+.categories-heading {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 24px;
+  color: #ffffff;
+}
+
+.categories {
+  display: grid;
+  /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
+  grid-template-rows: 220px 220px;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(300px, 1fr);
+  gap: 20px;
+  padding: 20px;
   overflow: auto;
+}
+
+.categories::-webkit-scrollbar {
+  /* Decreased from 12px */
+  height: 0px;
+}
+.category {
   position: relative;
   color: whitesmoke;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(205, 205, 205) 60%,
+    rgb(80, 80, 80)
+  );
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
 }
-.category p {
-  margin-top: 50px;
-}
-.category::after,
-.single-meal::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
+
+.category-img {
   width: 100%;
-  height: 100%;
-  background-image: linear-gradient(to bottom, transparent 60%, black);
+  border-radius: 10px;
 }
 
-.category::-webkit-scrollbar,
-.single-meal::-webkit-scrollbar {
-  display: none;
-}
-
-.meal-heading,
 .category-heading {
   position: absolute;
   bottom: 10px;
@@ -63,18 +118,149 @@ img {
   z-index: 1;
 }
 
+.meals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+  grid-auto-rows: auto;
+  justify-content: center;
+  gap: 20px;
+  padding: 100px 0px 20px;
+}
+.single-meal {
+  background-image: linear-gradient(
+    to bottom,
+    rgb(205, 205, 205) 60%,
+    rgb(80, 80, 80)
+  );
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  cursor: pointer;
+  text-align: center;
+}
+
+.meal-img {
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+}
+
+.meal-heading {
+  color: #ffffff;
+  padding: 10px 0;
+}
+
 .single-meal-recipe {
+  padding: 20px;
+  color: #000000;
   position: fixed;
-  top: 5%;
+  top: 80px;
   left: 10%;
   right: 10%;
-  bottom: 5%;
+  height: 100vh;
   z-index: 1000;
-  background-color: yellow;
-  padding: 20px;
-  overflow: auto;
+  background-color: rgb(255, 255, 255);
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-radius: 5px;
+}
+.single-meal-recipe::-webkit-scrollbar {
+  width: 8px;
+}
+.single-meal-recipe::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 4px;
+}
+
+.single-meal-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .single-meal-recipe {
+    left: 5%;
+    right: 5%;
+  }
+  .single-meal-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .meal-image-recipe {
+    margin-bottom: 20px;
+    margin-right: 0;
+    width: 100%;
+  }
+  .close-button {
+    right: 5%;
+  }
 }
 
 .meal-image-recipe {
-  width: 100%;
+  width: 400px;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+.meal-heading-recipe {
+  text-align: center;
+  margin-top: 10px;
+}
+.close-button {
+  padding: 10px 20px;
+  position: fixed;
+  top: 80px;
+  right: 10%;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+.meal-instructions {
+  margin-top: 20px;
+  white-space: pre-line;
+}
+
+.ingredients-heading {
+  margin-top: 20px;
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+.ingredients-list {
+  margin-top: 20px;
+  list-style-type: disc;
+  padding-left: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+  gap: 10px;
+}
+
+.ingredients-list li {
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  background-color: #e3e3e3;
+  align-items: center;
+  padding: 10px;
+}
+.ingredients-list img {
+  width: 150px;
+  margin-right: 10px;
+}
+.ingredients-list span {
+  align-self: center;
+  font-weight: bold;
+}
+
+.youtube-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #ff0000;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.youtube-link:hover {
+  background-color: #cc0000;
 }
