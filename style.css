@@ -122,7 +122,7 @@ main {
 
 .meals {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
   grid-auto-rows: auto;
   justify-content: center;
   gap: 20px;
@@ -155,10 +155,10 @@ main {
   padding: 20px;
   color: #000000;
   position: fixed;
-  top: 80px;
+  top: 40px;
   left: 10%;
   right: 10%;
-  height: 100vh;
+  height: 80vh;
   z-index: 1000;
   background-color: rgb(255, 255, 255);
   overflow-x: hidden;
@@ -209,11 +209,12 @@ main {
 .close-button {
   padding: 10px 20px;
   position: fixed;
-  top: 80px;
-  right: 10%;
+  top: 40px;
+  right: 11%;
   cursor: pointer;
   background: transparent;
   border: none;
+  font-size: 2rem;
 }
 .meal-instructions {
   margin-top: 20px;
@@ -265,4 +266,117 @@ main {
 
 .youtube-link:hover {
   background-color: #cc0000;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .single-meal-recipe {
+    left: 5%;
+    right: 5%;
+    width: 90vw;
+    top: 60px;
+    height: 90vh;
+    padding: 15px;
+  }
+  .meal-image-recipe {
+    width: 250px;
+    margin-right: 10px;
+  }
+  .close-button {
+    top: 60px;
+    right: 5%;
+  }
+  .categories {
+    grid-template-rows: 180px 180px;
+    gap: 15px;
+    padding: 10px;
+  }
+  .meals {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 80px 0px 10px;
+  }
+  .ingredients-list {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .single-meal-recipe {
+    left: 2%;
+    right: 2%;
+    width: 96vw;
+    top: 40px;
+    height: 90vh;
+    padding: 10px;
+  }
+  .single-meal-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .meal-image-recipe {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+  .close-button {
+    top: 40px;
+    right: 2%;
+  }
+  .categories {
+    grid-template-rows: 140px 140px;
+    gap: 10px;
+    padding: 5px;
+  }
+  .meals {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    padding: 60px 0px 5px;
+  }
+  .ingredients-list {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 5px;
+  }
+  .ingredients-list img {
+    width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .single-meal-recipe {
+    left: 0;
+    right: 0;
+    width: 100vw;
+    top: 0;
+    height: 100vh;
+    padding: 5px;
+    border-radius: 0;
+  }
+  .close-button {
+    top: 10px;
+    right: 10px;
+    padding: 8px 12px;
+  }
+  .hero-heading {
+    font-size: 24px;
+  }
+  .hero-description {
+    font-size: 14px;
+  }
+  .categories-heading {
+    font-size: 18px;
+  }
+  .meal-heading-recipe {
+    font-size: 18px;
+  }
+  .ingredients-heading {
+    font-size: 16px;
+  }
+  .ingredients-list {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+  .ingredients-list img {
+    width: 70px;
+  }
 }
