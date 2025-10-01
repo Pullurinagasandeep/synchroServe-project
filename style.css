@@ -7,24 +7,27 @@
 body {
   scroll-behavior: smooth;
   font-family: Arial, Helvetica, sans-serif, "Times New Roman", Times, serif;
-  background-color: #e8b14c;
+  background-color: #000000;
+  /* background-color: #e8b14c;
   background-image: url("./assets/top-view-cropped-hands-senior-cook-unrecognizable-cutting-carrot-cooking-vegetable-stew.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
-  backdrop-filter: brightness(0.7);
+  backdrop-filter: brightness(0.5); */
   line-height: 1.5;
   letter-spacing: 1px;
 }
+
 header {
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.5);
   z-index: 100;
+  backdrop-filter: blur(5px);
 }
 main {
   min-height: 100vh;
@@ -82,7 +85,7 @@ main {
 .categories {
   display: grid;
 
-  grid-template-rows: 220px 220px;
+  grid-template-rows: 230px 230px;
   grid-auto-flow: column;
   grid-auto-columns: minmax(300px, 1fr);
   gap: 20px;
@@ -99,15 +102,24 @@ main {
 .category {
   position: relative;
   color: whitesmoke;
-  background-image: linear-gradient(
+  background: linear-gradient(
     to bottom,
-    rgb(205, 205, 205) 60%,
-    rgb(80, 80, 80)
+    rgba(255, 255, 255, 0.3) 60%,
+    rgba(0, 0, 0, 0.7)
   );
   border-radius: 10px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
+  backdrop-filter: blur(2px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+.category:hover {
+  transform: scale(1.05);
+  background: rgb(255, 255, 255, 0.7);
+  color: #000000;
+  border: 2px solid rgba(255, 255, 255, 0.8);
 }
 
 .category-img {
@@ -128,44 +140,52 @@ main {
   grid-auto-rows: auto;
   justify-content: center;
   gap: 20px;
-  padding: 100px 0px 20px;
+  padding: 20px 0px 20px;
 }
 .single-meal {
-  background-image: linear-gradient(
-    to bottom,
-    rgb(205, 205, 205) 60%,
-    rgb(80, 80, 80)
-  );
+  background: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
   cursor: pointer;
   text-align: center;
 }
+.single-meal:hover {
+  transform: scale(1.05);
+  background: rgb(255, 255, 255, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  color: #000000;
+}
 
 .meal-img {
   width: 100%;
   border-radius: 10px 10px 0 0;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .meal-heading {
-  color: #ffffff;
   padding: 10px 0;
 }
 
 .single-meal-recipe {
   padding: 20px;
-  color: #000000;
+  color: #111;
   position: fixed;
-  top: 40px;
-  left: 10%;
-  right: 10%;
-  height: 80vh;
+  top: 2%;
+  left: 5%;
+  right: 5%;
+  width: 90vw;
+  height: 96vh;
   z-index: 1000;
-  background-color: rgb(255, 255, 255);
+  background: rgb(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
   overflow-x: hidden;
   overflow-y: auto;
   border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 .single-meal-recipe::-webkit-scrollbar {
   width: 8px;
@@ -179,6 +199,8 @@ main {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+
+  position: relative;
 }
 @media (max-width: 768px) {
   .single-meal-recipe {
@@ -200,23 +222,49 @@ main {
 }
 
 .meal-image-recipe {
-  width: 400px;
+  width: 100%;
+  max-width: 800px;
+  height: 300px;
+  object-fit: cover;
+  background-position: center;
   border-radius: 5px;
   margin-right: 20px;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 .meal-heading-recipe {
   text-align: center;
   margin-top: 10px;
+  font-size: 24px;
+  text-transform: uppercase;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  color: rgb(0, 0, 0);
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.instructions-heading {
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: underline;
 }
 .close-button {
   padding: 10px 20px;
   position: fixed;
-  top: 40px;
-  right: 11%;
+  top: 0;
+  right: 2%;
   cursor: pointer;
   background: transparent;
   border: none;
   font-size: 2rem;
+  color: #ffffff;
 }
 .meal-instructions {
   margin-top: 20px;
@@ -243,9 +291,14 @@ main {
   display: flex;
   flex-direction: column;
   border-radius: 6px;
-  background-color: #e3e3e3;
+  background-color: rgb(230, 230, 230);
+  border: 2px solid rgba(255, 255, 255);
   align-items: center;
   padding: 10px;
+}
+.ingredients-list li:hover {
+  background-color: rgba(255, 255, 255);
+  border: 2px solid rgba(255, 255, 255, 0.8);
 }
 .ingredients-list img {
   width: 150px;
@@ -257,13 +310,16 @@ main {
 }
 
 .youtube-link {
-  display: inline-block;
+  display: block;
+  margin: 0 auto;
   margin-top: 20px;
   padding: 10px 15px;
   background-color: #ff0000;
   color: white;
   text-decoration: none;
   border-radius: 5px;
+  font-weight: bold;
+  width: max-content;
 }
 
 .youtube-link:hover {
@@ -379,4 +435,49 @@ main {
   .ingredients-list img {
     width: 70px;
   }
+}
+
+.loading {
+  color: white;
+  position: fixed;
+  top: 2%;
+  left: 5%;
+  right: 5%;
+  width: 90vw;
+  height: 96vh;
+  z-index: 1010;
+  background: rgb(255, 255, 255, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 5px;
+}
+
+.spinner {
+  height: 100px;
+  width: 100px;
+  border: 5px solid rgb(200, 200, 200);
+  border-radius: 50%;
+  border-top: 5px solid rgb(3, 92, 194);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+.cancel-btn {
+  background-color: #ff0000;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
 }

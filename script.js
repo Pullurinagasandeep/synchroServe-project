@@ -1,3 +1,4 @@
+const body = document.querySelector("body");
 // on domcontent loaded
 async function gettingCategoryList() {
   const allCategoriesResponse = await fetch(
@@ -43,9 +44,9 @@ async function gettingCategoryMeals(category) {
   });
   const hero = document.querySelector(".hero");
 
-  const body = document.querySelector("main");
+  const main = document.querySelector("main");
   if (hero) {
-    body.removeChild(hero);
+    main.removeChild(hero);
   }
 
   let content = ``;
@@ -67,6 +68,7 @@ async function gettingCategoryMeals(category) {
     });
   });
 
+  categoryMeals.style.paddingTop = "100px";
   // categoryMeals.innerHTML = content;
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -75,27 +77,35 @@ async function gettingCategoryMeals(category) {
 
 // on clicking singlemeal
 async function gettingSingleMeal(id) {
+  loading();
   const singleMealResponse = await fetch(
     `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
   );
   const singleMealData = await singleMealResponse.json();
-  const body = document.querySelector("main");
-  document.body.style.overflow = "hidden";
+
   // removing selected categories meals before showing new category meals
+  const loader = document.querySelector("#loading");
+  body.removeChild(loader);
   const singlemeals = document.querySelectorAll(".single-meal-recipe");
   singlemeals.forEach((singlemeal) => {
     body.removeChild(singlemeal);
+    body.style.overflow = "auto";
   });
+
   // creating ingredients list
   let ingredients =
     "<h4 class='ingredients-heading'>Ingredients</h4><ul class='ingredients-list'>";
-  for (let i = 1; i <= 20; i++) {
+  let i = 1;
+  while (
+    singleMealData.meals[0][`strIngredient${i}`] &&
+    singleMealData.meals[0][`strIngredient${i}`] !== ""
+  ) {
     const ingredient = singleMealData.meals[0][`strIngredient${i}`];
     const measure = singleMealData.meals[0][`strMeasure${i}`];
 
     if (ingredient) {
       const imgsrcresponse = await fetch(
-        `https://www.themealdb.com/images/ingredients/${ingredient.replace(
+        `https://www.themealdb.com/images/ingredients/${ingredient.replaceAll(
           " ",
           "_"
         )}.png`
@@ -106,6 +116,7 @@ async function gettingSingleMeal(id) {
       <img src="${imgsrc}">
       </li>`;
     }
+    i++;
   }
   ingredients += "</ul>";
   // here if we work with inner html we are getting bug so it is prefered to this way
@@ -117,24 +128,29 @@ async function gettingSingleMeal(id) {
     singleMeal.innerHTML = `<div class="single-meal-wrapper" >
     <img class="meal-image-recipe" src="${meal.strMealThumb}">
      <h3 class="meal-heading-recipe">${meal.strMeal}</h3>
-<i class="fa-solid fa-xmark close-button" style="color: #000000;"  onclick="hide()"></i>
+<i class="fa-solid fa-xmark close-button" style="color: #000000ff;"  onclick="hide()"></i>
     </div>
-    <p class="meal-instructions">${meal.strInstructions}</p>
+    <p class="meal-instructions">
+    <span class="instructions-heading">Instructions</span><br>
+    ${meal.strInstructions}</p>
     <div>${ingredients}</div>
     <a class="youtube-link" href=${meal.strYoutube} target="_blank">watch on Youtube</a>`;
 
-    body.append(singleMeal);
+    body.prepend(singleMeal);
   });
+  body.style.overflow = "hidden";
 }
 // -------------------------------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------------------------------------
 function hide() {
   const element = document.querySelector(".single-meal-recipe");
-  const body = document.querySelector("main");
   body.removeChild(element);
-  document.body.style.overflow = "";
+  body.style.overflow = "auto";
 }
-
+function cancel() {
+  const loader = document.getElementById("loading");
+  body.removeChild(loader);
+}
 // -------------------------------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------------------------------------------------------------------
 async function handleSearch(event) {
@@ -155,7 +171,7 @@ async function handleSearch(event) {
   });
   const hero = document.querySelector(".hero");
 
-  const body = document.querySelector("main");
+  const main = document.querySelector("main");
   if (hero) {
     body.removeChild(hero);
   }
@@ -176,4 +192,13 @@ async function handleSearch(event) {
       gettingSingleMeal(meal.idMeal);
     });
   });
+}
+
+function loading() {
+  const loader = document.createElement("div");
+  loader.classList = "loading";
+  loader.setAttribute("id", "loading");
+  loader.innerHTML = `<div class="spinner"></div>
+  <a  class="cancel-btn"  onclick="cancel()">cancel</a>`;
+  body.append(loader);
 }
